@@ -1,0 +1,33 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 120px;
+  background-color: #eee;
+}
+
+.sidebar-menu {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.sidebar .sidebar-menu li button {
+  width: 100%;
+  text-align: start;
+  transition-property: color, background-color;
+  transition-duration: .3s;
+}
+
+.sidebar .sidebar-menu li button:hover {
+  color: white;
+  background-color: grey;
+}
+
+.sidebar .sidebar-menu li button.btn:focus {
+  box-shadow: none;
+}
+
+.main {
+  margin-left: 136px;
+}

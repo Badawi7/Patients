@@ -1,0 +1,246 @@
+﻿<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Badawi Maswadeh">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Patients</title>
+    <link href="Modules/Bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="Styles/main.css" rel="stylesheet">
+    <script src="Modules/jQuery/jquery-3.6.0.min.js"></script>
+    <script src="App/main.js"></script>
+  </head>
+
+  <body>
+    <div class="sidebar border-end">
+      <ul class="sidebar-menu">
+        <li><button type="button" class="btn">Patients</button></li>
+        <li><button type="button" class="btn">Users</button></li>
+      </ul>
+    </div>
+    <div class="main mt-3 me-3 mb-3">
+      <!-- Patients List -->
+      <div class="patients-list">
+        <div class="container-fluid mb-3">
+          <div class="row">
+            <h1 class="col">Patients</h1>
+            <div class="col-1 align-self-end text-end">
+              <button type="button" class="btn btn-primary">Add</button>
+            </div>
+          </div>
+        </div>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Gender</th>
+              <th>DOB</th>
+              <th>Active</th>
+              <th>Creation</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="patient-list-body">
+            <tr>
+              <td>1</td>
+              <td>Jill Valentine</td>
+              <td>jill@re.com</td>
+              <td>Female</td>
+              <td>13/1/1974</td>
+              <td>false</td>
+              <td>By Badawi Maswadeh at 3/11/2021 10:49</td>
+              <td>
+                <button type="button" class="btn btn-outline-secondary">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Chris Redfield</td>
+              <td>chris@re.com</td>
+              <td>Male</td>
+              <td>13/1/1973</td>
+              <td>true</td>
+              <td>By Badawi Maswadeh at 3/11/2021 10:49</td>
+              <td>
+                <button type="button" class="btn btn-outline-secondary">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Albert Wesker</td>
+              <td>albert@re.com</td>
+              <td>Male</td>
+              <td>15/1/1960</td>
+              <td>false</td>
+              <td>By Badawi Maswadeh at 3/11/2021 10:49</td>
+              <td>
+                <button type="button" class="btn btn-outline-secondary">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Barry Burton</td>
+              <td>barry@re.com</td>
+              <td>Male</td>
+              <td>13/1/1960</td>
+              <td>false</td>
+              <td>By Badawi Maswadeh at 3/11/2021 10:49</td>
+              <td>
+                <button type="button" class="btn btn-outline-secondary">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Rebecca Chambers</td>
+              <td>rebecca@re.com</td>
+              <td>Female</td>
+              <td>13/1/1980</td>
+              <td>false</td>
+              <td>By Badawi Maswadeh at 3/11/2021 10:49</td>
+              <td>
+                <button type="button" class="btn btn-outline-secondary">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Leon Kennedy</td>
+              <td>leon@re.com</td>
+              <td>Male</td>
+              <td>13/1/1977</td>
+              <td>true</td>
+              <td>By Badawi Maswadeh at 3/11/2021 10:49</td>
+              <td>
+                <button type="button" class="btn btn-outline-secondary">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Claire Redfield</td>
+              <td>claire@re.com</td>
+              <td>Female</td>
+              <td>13/1/1979</td>
+              <td>true</td>
+              <td>By Badawi Maswadeh at 3/11/2021 10:49</td>
+              <td>
+                <button type="button" class="btn btn-outline-secondary">Edit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Patient Edit -->
+      <div class="patient-edit">
+        <h1>Edit Patient</h1>
+        <form>
+          <div class="text-end">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-outline-secondary">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Users List -->
+      <div class="users-list">
+        <div class="container-fluid mb-3">
+          <div class="row">
+            <h1 class="col">Users</h1>
+            <div class="col-1 align-self-end text-end">
+              <button type="button" class="btn btn-primary">Add</button>
+            </div>
+          </div>
+        </div>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Gender</th>
+              <th>DOB</th>
+              <th>Active</th>
+              <th>Creation</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="user-list-body">
+            <tr>
+              <td>1</td>
+              <td>William Birkin</td>
+              <td>william@re.com</td>
+              <td>Male</td>
+              <td>13/1/1962</td>
+              <td>false</td>
+              <td>By Badawi Maswadeh at 3/11/2021 11:45</td>
+              <td>
+                <button type="button" class="btn btn-outline-secondary">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Ada Wong</td>
+              <td>ada@re.com</td>
+              <td>Female</td>
+              <td>15/1/1974</td>
+              <td>true</td>
+              <td>By Badawi Maswadeh at 3/11/2021 11:46</td>
+              <td>
+                <button type="button" class="btn btn-outline-secondary">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Sherry Birkin</td>
+              <td>sherry@re.com</td>
+              <td>Female</td>
+              <td>13/1/1986</td>
+              <td>true</td>
+              <td>By Badawi Maswadeh at 3/11/2021 11:47</td>
+              <td>
+                <button type="button" class="btn btn-outline-secondary">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Carlos Oliveira</td>
+              <td>carlos@re.com</td>
+              <td>Male</td>
+              <td>15/1/1977</td>
+              <td>true</td>
+              <td>By Badawi Maswadeh at 3/11/2021 11:49</td>
+              <td>
+                <button type="button" class="btn btn-outline-secondary">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Mikhail Viktor</td>
+              <td>mikhail@re.com</td>
+              <td>Male</td>
+              <td>13/1/1953</td>
+              <td>false</td>
+              <td>By Badawi Maswadeh at 3/11/2021 13:08</td>
+              <td>
+                <button type="button" class="btn btn-outline-secondary">Edit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- User Edit -->
+      <div class="user-edit">
+        <h1>Edit User</h1>
+        <form>
+          <div class="text-end">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-outline-secondary">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="Modules/Bootstrap/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
