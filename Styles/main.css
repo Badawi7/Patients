@@ -31,3 +31,7 @@
 .main {
   margin-left: 136px;
 }
+
+.patients-list, .patient-edit, .users-list, .user-edit {
+  display: none;
+}
