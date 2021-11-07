@@ -1,100 +1,50 @@
-let patientsListEl, patientEditEl, usersListEl, userEditEl;
-
 $(document).ready(init);
 
 function init() {
-  patientsListEl = $('.patients-list'); //The element that holds the Patients List screen
-  patientEditEl = $('.patient-edit'); //The element that holds the Patient Edit screen
-  usersListEl = $('.users-list'); //The element that holds the Users List screen
-  userEditEl = $('.user-edit'); //The element that holds the User Edit screen
+  $('.router-link').click(onRouterLinkClick); //Applies to any button responsible for routing
 
-  $('.sidebar .sidebar-menu .patients-btn').click(onPatientsClick);
-  $('.patient-add-btn').click(onPatientsAddClick);
-  $('.patient-edit-btn').click(onPatientEditClick);
-  $('.patient-edit form').on('submit', onPatientEditSubmit);
-  $('.patient-edit-cancel-btn').click(onPatientCancelClick);
-
-  $('.sidebar .sidebar-menu .users-btn').click(onUsersClick);
-  $('.user-add-btn').click(onUsersAddClick);
-  $('.user-edit-btn').click(onUserEditClick);
-  $('.user-edit form').on('submit', onUserEditSubmit);
-  $('.user-edit-cancel-btn').click(onUserCancelClick);
+  //Temporary (start)
+  navigate('.patients-list');
+  renderTable($('.patients-list table'), patientsData);
+  //Temporary (end)
 }
 
-function onPatientsClick() {
-  goToPatientsList();
+function onRouterLinkClick(event) {
+  //Hide all screens first
+  hideAllComponents();
+
+  //Show only the component specified in the data-target attribute of the clicked button
+  const targetComponentSelector = $(event.target).data('target');
+  navigate(targetComponentSelector);
 }
 
-function onUsersClick() {
-  goToUsersList();
+function hideAllComponents() {
+  $('.component').hide();
 }
 
-function onPatientsAddClick() {
-  goToPatientEdit();
+function navigate(target) {
+  $(target).show();
 }
 
-function onUsersAddClick() {
-  goToUserEdit();
+function renderTable(targetTable, sourceData) {
+  const tableBodyEl = targetTable.find('tbody');
+  tableBodyEl.html(''); //Clear the table first
+  sourceData.forEach(function (sourceRecord) {
+    addTableRow(tableBodyEl, sourceRecord);
+  });
 }
 
-function onPatientEditClick() {
-  goToPatientEdit();
-}
+function addTableRow(targetTableBody, record) {
+  let rowHTML = '<tr><td>' +
+    record.ID + '</td><td>' +
+    record.fname + ' ' + record.mname + ' ' + record.lname + '</td><td>' +
+    record.email + '</td><td>' +
+    record.gender + '</td><td>' +
+    record.DOB + '</td><td>' +
+    record.Active + '</td><td>By ' +
+    record.CreatedBy + ' at ' + record.creationDate + '</td><td>' +
+    '<button type="button" class="btn btn-outline-secondary router-link" ' +
+    'data-target=".patient-edit">Edit</button></td></tr>';
 
-function onUserEditClick() {
-  goToUserEdit();
-}
-
-function onPatientEditSubmit(event) {
-  event.preventDefault(); //Prevent submitting for now
-  goToPatientsList();
-}
-
-function onPatientCancelClick() {
-  goToPatientsList();
-}
-
-function onUserEditSubmit(event) {
-  event.preventDefault(); //Prevent submitting for now
-  goToUsersList();
-}
-
-function onUserCancelClick() {
-  goToUsersList();
-}
-
-//This function causes only the Patients List
-//screen to be shown, and hides the other ones
-function goToPatientsList() {
-  patientEditEl.hide();
-  usersListEl.hide();
-  userEditEl.hide();
-  patientsListEl.show();
-}
-
-//This function causes only the Patient Edit
-//screen to be shown, and hides the other ones
-function goToPatientEdit() {
-  patientsListEl.hide();
-  usersListEl.hide();
-  userEditEl.hide();
-  patientEditEl.show();
-}
-
-//This function causes only the Users List
-//screen to be shown, and hides the other ones
-function goToUsersList() {
-  patientsListEl.hide();
-  patientEditEl.hide();
-  userEditEl.hide();
-  usersListEl.show();
-}
-
-//This function causes only the User Edit
-//screen to be shown, and hides the other ones
-function goToUserEdit() {
-  patientsListEl.hide();
-  patientEditEl.hide();
-  usersListEl.hide();
-  userEditEl.show();
+  targetTableBody.append(rowHTML);
 }
