@@ -1,7 +1,7 @@
 $(document).ready(init);
 
 function init() {
-  $('.router-link').click(onRouterLinkClick); //Applies to any button responsible for routing
+  $('.action-link').click(onActionLinkClick); //Applies to any button responsible for routing
 
   //Temporary (start)
   navigate('.patients-list');
@@ -9,42 +9,36 @@ function init() {
   //Temporary (end)
 }
 
-function onRouterLinkClick(event) {
-  //Hide all screens first
-  hideAllComponents();
-
+function onActionLinkClick(event) {
   //Show only the component specified in the data-target attribute of the clicked button
   const targetComponentSelector = $(event.target).data('target');
   navigate(targetComponentSelector);
 }
 
-function hideAllComponents() {
-  $('.component').hide();
-}
-
 function navigate(target) {
+  //Hide all screens first
+  hideAll();
+
   $(target).show();
 }
 
-function renderTable(targetTable, sourceData) {
-  const tableBodyEl = targetTable.find('tbody');
-  tableBodyEl.html(''); //Clear the table first
-  sourceData.forEach(function (sourceRecord) {
-    addTableRow(tableBodyEl, sourceRecord);
-  });
+function hideAll() {
+  $('.component').hide();
 }
 
-function addTableRow(targetTableBody, record) {
-  let rowHTML = '<tr><td>' +
-    record.ID + '</td><td>' +
-    record.fname + ' ' + record.mname + ' ' + record.lname + '</td><td>' +
-    record.email + '</td><td>' +
-    record.gender + '</td><td>' +
-    record.DOB + '</td><td>' +
-    record.Active + '</td><td>By ' +
-    record.CreatedBy + ' at ' + record.creationDate + '</td><td>' +
-    '<button type="button" class="btn btn-outline-secondary router-link" ' +
-    'data-target=".patient-edit">Edit</button></td></tr>';
+function renderTable() {
+  const tableBodyEl = $('.patients-list table tbody');
+  tableBodyEl.empty(); //Clear the table first
 
-  targetTableBody.append(rowHTML);
+  patientsData.forEach(function (record) {
+    const rowHTML = `<tr><td>${record.ID}</td>
+    <td>${record.fname} ${record.mname} ${record.lname}</td>
+    <td>${record.email}</td>
+    <td>${record.gender}</td>
+    <td>${record.DOB}</td>
+    <td>${record.Active}</td>
+    <td>By ${record.CreatedBy} at ${record.creationDate}</td>
+    <td><button type="button" class="btn btn-outline-secondary router-link" data-target=".patient-edit">Edit</button></td></tr>`;
+    tableBodyEl.append(rowHTML);
+  });
 }
