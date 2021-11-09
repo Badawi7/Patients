@@ -42,15 +42,7 @@ function renderTable() {
 }
 
 function renderTemplate(templateText, data) {
-  let result = templateText;
-  let currentPosition = result.indexOf('{{');
-  while (currentPosition > -1) {
-    const end = result.indexOf('}}', currentPosition + 2); //Start searching after the opening braces
-    const placeholder = result.substring(currentPosition, end + 2);
-    const key = result.substring(currentPosition + 2, end);
-    result = result.replace(placeholder, data[key]);
-
-    currentPosition = result.indexOf('{{', currentPosition); //Start searching from the current position
-  }
-  return result;
+  return templateText.replaceAll(/{{2}(.+?)}{2}/g, (match, key) => data[key] );
+  //In the above line, match is the entire matched placeholder, and key is
+  //the captured group, which is the token inside the set of double braces.
 }
