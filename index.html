@@ -44,97 +44,13 @@
             </tr>
           </thead>
           <tbody class="patient-list-body">
-            <tr>
-              <td>1</td>
-              <td>Jill Valentine</td>
-              <td>jill@re.com</td>
-              <td>Female</td>
-              <td>13/1/1974</td>
-              <td>false</td>
-              <td>By Badawi Maswadeh at 3/11/2021 10:49</td>
-              <td>
-                <button type="button" class="btn btn-outline-secondary action-link" data-target=".patient-edit">Edit</button>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Chris Redfield</td>
-              <td>chris@re.com</td>
-              <td>Male</td>
-              <td>13/1/1973</td>
-              <td>true</td>
-              <td>By Badawi Maswadeh at 3/11/2021 10:49</td>
-              <td>
-                <button type="button" class="btn btn-outline-secondary action-link" data-target=".patient-edit">Edit</button>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Albert Wesker</td>
-              <td>albert@re.com</td>
-              <td>Male</td>
-              <td>15/1/1960</td>
-              <td>false</td>
-              <td>By Badawi Maswadeh at 3/11/2021 10:49</td>
-              <td>
-                <button type="button" class="btn btn-outline-secondary action-link" data-target=".patient-edit">Edit</button>
-              </td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Barry Burton</td>
-              <td>barry@re.com</td>
-              <td>Male</td>
-              <td>13/1/1960</td>
-              <td>false</td>
-              <td>By Badawi Maswadeh at 3/11/2021 10:49</td>
-              <td>
-                <button type="button" class="btn btn-outline-secondary action-link" data-target=".patient-edit">Edit</button>
-              </td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Rebecca Chambers</td>
-              <td>rebecca@re.com</td>
-              <td>Female</td>
-              <td>13/1/1980</td>
-              <td>false</td>
-              <td>By Badawi Maswadeh at 3/11/2021 10:49</td>
-              <td>
-                <button type="button" class="btn btn-outline-secondary action-link" data-target=".patient-edit">Edit</button>
-              </td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>Leon Kennedy</td>
-              <td>leon@re.com</td>
-              <td>Male</td>
-              <td>13/1/1977</td>
-              <td>true</td>
-              <td>By Badawi Maswadeh at 3/11/2021 10:49</td>
-              <td>
-                <button type="button" class="btn btn-outline-secondary action-link" data-target=".patient-edit">Edit</button>
-              </td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>Claire Redfield</td>
-              <td>claire@re.com</td>
-              <td>Female</td>
-              <td>13/1/1979</td>
-              <td>true</td>
-              <td>By Badawi Maswadeh at 3/11/2021 10:49</td>
-              <td>
-                <button type="button" class="btn btn-outline-secondary action-link" data-target=".patient-edit">Edit</button>
-              </td>
-            </tr>
           </tbody>
         </table>
       </div>
 
       <!-- Patient Edit -->
       <div class="component patient-edit">
-        <h1>Edit Patient</h1>
+        <h1>Edit Patient <span class="patient-id"></span></h1>
         <form>
           <div class="text-end">
             <button type="button" class="btn btn-primary action-link" data-target=".patients-list">Save</button>
@@ -242,6 +158,20 @@
         </form>
       </div>
     </div>
+    <template class="patients-table-template">
+      <tr>
+        <td>{{ID}}</td>
+        <td>{{fname}} {{mname}} {{lname}}</td>
+        <td>{{email}}</td>
+        <td>{{gender}}</td>
+        <td>{{DOB}}</td>
+        <td>{{Active}}</td>
+        <td>By {{CreatedBy}} at {{creationDate}}</td>
+        <td>
+          <button type="button" class="btn btn-outline-secondary action-link patient-edit-btn" data-target=".patient-edit" data-id="{{ID}}">Edit</button>
+        </td>
+      </tr>
+    </template>
     <script src="Modules/Bootstrap/bootstrap.bundle.min.js"></script>
   </body>
 </html>
