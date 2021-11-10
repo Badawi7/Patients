@@ -1,177 +1,224 @@
 ﻿<!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="author" content="Badawi Maswadeh">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Patients</title>
-    <link href="Modules/Bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="Styles/main.css" rel="stylesheet">
-    <script src="Modules/jQuery/jquery-3.6.0.min.js"></script>
-    <script src="App/data/patientData.js"></script>
-    <script src="App/main.js"></script>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Badawi Maswadeh">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Patients</title>
+  <link href="Modules/Bootstrap/bootstrap.min.css" rel="stylesheet">
+  <link href="Styles/main.css" rel="stylesheet">
+  <script src="Modules/jQuery/jquery-3.6.0.min.js"></script>
+  <script src="App/data/patientData.js"></script>
+  <script src="App/main.js"></script>
+</head>
 
-  <body>
-    <div class="sidebar border-end">
-      <ul class="sidebar-menu">
-        <li><button type="button" class="btn action-link" data-target=".patients-list">Patients</button></li>
-        <li><button type="button" class="btn action-link" data-target=".users-list">Users</button></li>
-      </ul>
-    </div>
-    <div class="main mt-3 me-3 mb-3">
-      <!-- Patients List -->
-      <div class="component patients-list">
-        <div class="container-fluid mb-3">
-          <div class="row">
-            <h1 class="col">Patients</h1>
-            <div class="col-1 align-self-end text-end">
-              <button type="button" class="btn btn-primary action-link" data-target=".patient-edit">Add</button>
-            </div>
+<body>
+  <div class="sidebar border-end">
+    <ul class="sidebar-menu">
+      <li><button type="button" class="btn action-link" data-target=".patients-list">Patients</button></li>
+      <li><button type="button" class="btn action-link" data-target=".users-list">Users</button></li>
+    </ul>
+  </div>
+  <div class="main mt-3 me-3 mb-3">
+    <!-- Patients List -->
+    <div class="component patients-list">
+      <div class="container-fluid mb-3">
+        <div class="row">
+          <h1 class="col">Patients</h1>
+          <div class="col-1 align-self-end text-end">
+            <button type="button" class="btn btn-primary action-link" data-target=".patient-edit">Add</button>
           </div>
         </div>
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Gender</th>
-              <th>DOB</th>
-              <th>Active</th>
-              <th>Creation</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody class="patient-list-body">
-          </tbody>
-        </table>
       </div>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>DOB</th>
+            <th>Active</th>
+            <th>Creation</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="patient-list-body">
+        </tbody>
+      </table>
+    </div>
 
-      <!-- Patient Edit -->
-      <div class="component patient-edit">
-        <h1>Edit Patient <span class="patient-id"></span></h1>
-        <form>
+    <!-- Patient Edit -->
+    <div class="component patient-edit">
+      <h1>Edit Patient <span class="patient-id"></span></h1>
+      <form>
+        <div class="row g-3">
+          <div class="col-xxl-6">
+            <label class="form-label" for="fname-field">First Name</label>
+            <input type="text" class="form-control" id="fname-field" name="fname">
+          </div>
+          <div class="col-xxl-6">
+            <label class="form-label" for="mname-field">Middle Name</label>
+            <input type="text" class="form-control" id="mname-field" name="mname">
+          </div>
+          <div class="col-xxl-6">
+            <label class="form-label" for="lname-field">Last Name</label>
+            <input type="text" class="form-control" id="lname-field" name="lname">
+          </div>
+          <fieldset class="col-xxl-6">
+            <legend>Gender</legend>
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" name="gender" id="gender-male" value="1">
+              <label class="form-check-label" for="gender-male">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" name="gender" id="gender-female" value="2">
+              <label class="form-check-label" for="gender-female">Female</label>
+            </div>
+          </fieldset>
+          <div class="col-xxl-6">
+            <label class="form-label" for="dob-field">Date of Birth</label>
+            <input type="date" class="form-control" id="dob-field" name="date-of-birth">
+          </div>
+          <div class="col-xxl-6">
+            <label class="form-label" for="age-field">Age</label>
+            <input type="number" min="0" class="form-control" id="age-field" name="age">
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="email-field">Email</label>
+            <input type="email" class="form-control" id="email-field" name="email">
+          </div>
+          <div class="col-xxl-6">
+            <label class="form-label" for="last-check-field">Last Check</label>
+            <input type="date" class="form-control" id="last-check-field" name="last-check">
+          </div>
+          <div class="col-xxl-6">
+            <label class="form-label" for="status-field">Status</label>
+            <select class="form-select" id="status-field" name="status">
+              <option value="0">0</option>
+            </select>
+          </div>
           <div class="text-end">
-            <button type="button" class="btn btn-primary action-link" data-target=".patients-list">Save</button>
+            <button type="submit" class="btn btn-primary action-link" data-target=".patients-list">Save</button>
             <button type="button" class="btn btn-outline-secondary action-link" data-target=".patients-list">Cancel</button>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
+    </div>
 
-      <!-- Users List -->
-      <div class="component users-list">
-        <div class="container-fluid mb-3">
-          <div class="row">
-            <h1 class="col">Users</h1>
-            <div class="col-1 align-self-end text-end">
-              <button type="button" class="btn btn-primary action-link" data-target=".user-edit">Add</button>
-            </div>
+    <!-- Users List -->
+    <div class="component users-list">
+      <div class="container-fluid mb-3">
+        <div class="row">
+          <h1 class="col">Users</h1>
+          <div class="col-1 align-self-end text-end">
+            <button type="button" class="btn btn-primary action-link" data-target=".user-edit">Add</button>
           </div>
         </div>
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Gender</th>
-              <th>DOB</th>
-              <th>Active</th>
-              <th>Creation</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody class="user-list-body">
-            <tr>
-              <td>1</td>
-              <td>William Birkin</td>
-              <td>william@re.com</td>
-              <td>Male</td>
-              <td>13/1/1962</td>
-              <td>false</td>
-              <td>By Badawi Maswadeh at 3/11/2021 11:45</td>
-              <td>
-                <button type="button" class="btn btn-outline-secondary action-link" data-target=".user-edit">Edit</button>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Ada Wong</td>
-              <td>ada@re.com</td>
-              <td>Female</td>
-              <td>15/1/1974</td>
-              <td>true</td>
-              <td>By Badawi Maswadeh at 3/11/2021 11:46</td>
-              <td>
-                <button type="button" class="btn btn-outline-secondary action-link" data-target=".user-edit">Edit</button>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Sherry Birkin</td>
-              <td>sherry@re.com</td>
-              <td>Female</td>
-              <td>13/1/1986</td>
-              <td>true</td>
-              <td>By Badawi Maswadeh at 3/11/2021 11:47</td>
-              <td>
-                <button type="button" class="btn btn-outline-secondary action-link" data-target=".user-edit">Edit</button>
-              </td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Carlos Oliveira</td>
-              <td>carlos@re.com</td>
-              <td>Male</td>
-              <td>15/1/1977</td>
-              <td>true</td>
-              <td>By Badawi Maswadeh at 3/11/2021 11:49</td>
-              <td>
-                <button type="button" class="btn btn-outline-secondary action-link" data-target=".user-edit">Edit</button>
-              </td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Mikhail Viktor</td>
-              <td>mikhail@re.com</td>
-              <td>Male</td>
-              <td>13/1/1953</td>
-              <td>false</td>
-              <td>By Badawi Maswadeh at 3/11/2021 13:08</td>
-              <td>
-                <button type="button" class="btn btn-outline-secondary action-link" data-target=".user-edit">Edit</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
-
-      <!-- User Edit -->
-      <div class="component user-edit">
-        <h1>Edit User</h1>
-        <form>
-          <div class="text-end">
-            <button type="button" class="btn btn-primary action-link" data-target=".users-list">Save</button>
-            <button type="button" class="btn btn-outline-secondary action-link" data-target=".users-list">Cancel</button>
-          </div>
-        </form>
-      </div>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>DOB</th>
+            <th>Active</th>
+            <th>Creation</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="user-list-body">
+          <tr>
+            <td>1</td>
+            <td>William Birkin</td>
+            <td>william@re.com</td>
+            <td>Male</td>
+            <td>13/1/1962</td>
+            <td>false</td>
+            <td>By Badawi Maswadeh at 3/11/2021 11:45</td>
+            <td>
+              <button type="button" class="btn btn-outline-secondary action-link" data-target=".user-edit">Edit</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Ada Wong</td>
+            <td>ada@re.com</td>
+            <td>Female</td>
+            <td>15/1/1974</td>
+            <td>true</td>
+            <td>By Badawi Maswadeh at 3/11/2021 11:46</td>
+            <td>
+              <button type="button" class="btn btn-outline-secondary action-link" data-target=".user-edit">Edit</button>
+            </td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Sherry Birkin</td>
+            <td>sherry@re.com</td>
+            <td>Female</td>
+            <td>13/1/1986</td>
+            <td>true</td>
+            <td>By Badawi Maswadeh at 3/11/2021 11:47</td>
+            <td>
+              <button type="button" class="btn btn-outline-secondary action-link" data-target=".user-edit">Edit</button>
+            </td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Carlos Oliveira</td>
+            <td>carlos@re.com</td>
+            <td>Male</td>
+            <td>15/1/1977</td>
+            <td>true</td>
+            <td>By Badawi Maswadeh at 3/11/2021 11:49</td>
+            <td>
+              <button type="button" class="btn btn-outline-secondary action-link" data-target=".user-edit">Edit</button>
+            </td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Mikhail Viktor</td>
+            <td>mikhail@re.com</td>
+            <td>Male</td>
+            <td>13/1/1953</td>
+            <td>false</td>
+            <td>By Badawi Maswadeh at 3/11/2021 13:08</td>
+            <td>
+              <button type="button" class="btn btn-outline-secondary action-link" data-target=".user-edit">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <template class="patients-table-template">
-      <tr>
-        <td>{{ID}}</td>
-        <td>{{fname}} {{mname}} {{lname}}</td>
-        <td>{{email}}</td>
-        <td>{{gender}}</td>
-        <td>{{DOB}}</td>
-        <td>{{Active}}</td>
-        <td>By {{CreatedBy}} at {{creationDate}}</td>
-        <td>
-          <button type="button" class="btn btn-outline-secondary action-link patient-edit-btn" data-target=".patient-edit" data-id="{{ID}}">Edit</button>
-        </td>
-      </tr>
-    </template>
-    <script src="Modules/Bootstrap/bootstrap.bundle.min.js"></script>
-  </body>
+
+    <!-- User Edit -->
+    <div class="component user-edit">
+      <h1>Edit User</h1>
+      <form>
+        <div class="text-end">
+          <button type="button" class="btn btn-primary action-link" data-target=".users-list">Save</button>
+          <button type="button" class="btn btn-outline-secondary action-link" data-target=".users-list">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <template class="patients-table-template">
+    <tr>
+      <td>{{ID}}</td>
+      <td>{{fname}} {{mname}} {{lname}}</td>
+      <td>{{email}}</td>
+      <td>{{gender}}</td>
+      <td>{{DOB}}</td>
+      <td>{{Active}}</td>
+      <td>By {{CreatedBy}} at {{creationDate}}</td>
+      <td>
+        <button type="button" class="btn btn-outline-secondary action-link patient-edit-btn" data-target=".patient-edit" data-id="{{ID}}">Edit</button>
+      </td>
+    </tr>
+  </template>
+  <script src="Modules/Bootstrap/bootstrap.bundle.min.js"></script>
+</body>
 </html>
