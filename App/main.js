@@ -49,19 +49,32 @@ function renderTemplate(templateText, data) {
 
 function onPatientEditClick(event) {
   const patientID = $(event.target).data('id');
-  $('.patient-id').html(patientID);
   currentPatient = patientsData.find(patient => patient.ID == patientID);
+  fillPatientInfo();
+}
+
+function onPatientEditFormSubmit(event) {
+  savePatientInfo();
+  renderTable();
+  event.preventDefault(); //Prevent submitting the form
+}
+
+function fillPatientInfo() {
+  $('.patient-id').html(currentPatient.ID);
   $('#fname-field').val(currentPatient.fname);
   $('#mname-field').val(currentPatient.mname);
   $('#lname-field').val(currentPatient.lname);
   genderRNL.value = currentPatient.gender;
-  $('#dob-field')[0].valueAsDate = currentPatient.DOB;
+  const dateOfBirthStr = moment(currentPatient.DOB).format('YYYY-MM-DD');
+  $('#dob-field').val(dateOfBirthStr);
   $('#email-field').val(currentPatient.email);
-  $('#last-check-field')[0].valueAsDate = currentPatient.lastCheck;
+  const lastCheckStr = moment(currentPatient.lastCheck).format('YYYY-MM-DD');
+  $('#last-check-field').val(lastCheckStr);
   $('#status-field').val(currentPatient.status);
+  $('#active-check').prop('checked', currentPatient.Active);
 }
 
-function onPatientEditFormSubmit(event) {
+function savePatientInfo() {
   currentPatient.fname = $('#fname-field').val();
   currentPatient.mname = $('#mname-field').val();
   currentPatient.lname = $('#lname-field').val();
@@ -70,7 +83,5 @@ function onPatientEditFormSubmit(event) {
   currentPatient.email = $('#email-field').val();
   currentPatient.lastCheck = $('#last-check-field')[0].valueAsDate;
   currentPatient.status = $('#status-field').val();
-  
-  renderTable();
-  event.preventDefault(); //Prevent submitting the form
+  currentPatient.Active = $('#active-check').prop('checked');
 }
