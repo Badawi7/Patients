@@ -6,6 +6,7 @@ $(document).ready(init);
 function init() {
   genderRNL = $('.patient-edit form')[0].elements['gender'];
   $('.action-link').click(onActionLinkClick); //Applies to any button responsible for routing
+  $('.patient-add-btn').click(onPatientAddClick);
   $('.patient-edit form').on('submit', onPatientEditFormSubmit);
   renderTable();
 }
@@ -53,14 +54,22 @@ function onPatientEditClick(event) {
   fillPatientInfo();
 }
 
+function onPatientAddClick() {
+  currentPatient = null;
+  resetPatientInfo();
+}
+
 function onPatientEditFormSubmit(event) {
+  if (!currentPatient) {
+    currentPatient = addNewPatient();
+  }
   savePatientInfo();
   renderTable();
   event.preventDefault(); //Prevent submitting the form
 }
 
 function fillPatientInfo() {
-  $('.patient-id').html(currentPatient.ID);
+  $('.patient-edit-heading').html(`Edit Patient ${currentPatient.ID}`);
   $('#fname-field').val(currentPatient.fname);
   $('#mname-field').val(currentPatient.mname);
   $('#lname-field').val(currentPatient.lname);
@@ -84,4 +93,22 @@ function savePatientInfo() {
   currentPatient.lastCheck = $('#last-check-field')[0].valueAsDate;
   currentPatient.status = $('#status-field').val();
   currentPatient.Active = $('#active-check').prop('checked');
+}
+
+function resetPatientInfo() {
+  $('.patient-edit-heading').html('New Patient');
+  $('.patient-edit form')[0].reset();
+}
+
+function addNewPatient() {
+  const newPatient = {ID: getNewID(), creationDate: new Date(), CreatedBy: 1};
+  patientsData.push(newPatient);
+  return newPatient;
+}
+
+//This function looks for the largest ID in the patients array, and returns that plus one
+function getNewID() {
+  const getLargerID = (prevMaxID, current) => Math.max(prevMaxID, current.ID); //Reducer function
+  const maxID = patientsData.reduce(getLargerID, 0);
+  return maxID + 1; //Return the next available number
 }
