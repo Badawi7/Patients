@@ -51,7 +51,13 @@
 
     <!-- Patient Edit -->
     <div class="component patient-edit">
-      <h1 class="patient-edit-heading"></h1>
+      <div class="row">
+        <h1 class="col patient-edit-heading"></h1>
+        <div class="col-1 align-self-end text-end">
+          <button type="button" class="btn btn-danger patient-edit-del-btn" data-bs-toggle="modal" data-bs-target="#patient-del-confirm">Delete</button>
+        </div>
+      </div>
+      
       <form>
         <div class="row gx-4 gy-3">
           <div class="col-xxl-6">
@@ -213,7 +219,7 @@
     </div>
   </div>
   <template class="patients-table-template">
-    <tr>
+    <tr data-id="{{ID}}">
       <td>{{ID}}</td>
       <td>{{fname}} {{mname}} {{lname}}</td>
       <td>{{email}}</td>
@@ -221,11 +227,30 @@
       <td>{{DOB}}</td>
       <td>{{Active}}</td>
       <td>By {{CreatedBy}} at {{creationDate}}</td>
-      <td>
-        <button type="button" class="btn btn-outline-secondary action-link patient-edit-btn" data-target=".patient-edit" data-id="{{ID}}">Edit</button>
+      <td class="text-nowrap">
+        <button type="button" class="btn btn-outline-secondary action-link patient-edit-btn" data-target=".patient-edit">Edit</button>
+        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#patient-del-confirm">Delete</button>
       </td>
     </tr>
   </template>
+  <!-- Patient Delete Confirmation Dialog -->
+  <div class="modal fade" id="patient-del-confirm" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete Patient</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete patient <span class="patient-id"></span>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger action-link patient-del-perform" data-target=".patients-list" data-bs-dismiss="modal">&#9888; Yes</button>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="Modules/Bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 </html>

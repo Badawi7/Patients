@@ -1,14 +1,26 @@
-let currentPatient;
-let genderRNL;
+let currentRow, currentPatient;
 
 $(document).ready(init);
 
 function init() {
-  genderRNL = $('.patient-edit form')[0].elements['gender'];
+  initRouter();
+  initEdit();
+  initDelete();
+  renderTable();
+}
+
+function initRouter() {
   $('.action-link').click(onActionLinkClick); //Applies to any button responsible for routing
+}
+
+function initEdit() {
   $('.patient-add-btn').click(onPatientAddClick);
   $('.patient-edit form').on('submit', onPatientEditFormSubmit);
-  renderTable();
+}
+
+function initDelete() {
+  $('#patient-del-confirm').on('show.bs.modal', onPatientDelConfirmShow);
+  $('.patient-del-perform').click(onPatientDelYesClick);
 }
 
 function onActionLinkClick(event) {
@@ -49,9 +61,14 @@ function renderTemplate(templateText, data) {
 }
 
 function onPatientEditClick(event) {
-  const patientID = $(event.target).data('id');
-  currentPatient = patientsData.find(patient => patient.ID == patientID);
+  setCurrentPatient(event.target);
   fillPatientInfo();
+}
+
+function setCurrentPatient(trigger) {
+  currentRow = $(trigger).parent().parent();
+  const patientID = currentRow.data('id');
+  currentPatient = patientsData.find(patient => patient.ID == patientID);
 }
 
 function onPatientAddClick() {
@@ -73,6 +90,7 @@ function fillPatientInfo() {
   $('#fname-field').val(currentPatient.fname);
   $('#mname-field').val(currentPatient.mname);
   $('#lname-field').val(currentPatient.lname);
+  const genderRNL = $('.patient-edit form')[0].elements['gender'];
   genderRNL.value = currentPatient.gender;
   const dateOfBirthStr = moment(currentPatient.DOB).format('YYYY-MM-DD');
   $('#dob-field').val(dateOfBirthStr);
@@ -87,6 +105,7 @@ function savePatientInfo() {
   currentPatient.fname = $('#fname-field').val();
   currentPatient.mname = $('#mname-field').val();
   currentPatient.lname = $('#lname-field').val();
+  const genderRNL = $('.patient-edit form')[0].elements['gender'];
   currentPatient.gender = genderRNL.value;
   currentPatient.DOB = $('#dob-field')[0].valueAsDate;
   currentPatient.email = $('#email-field').val();
@@ -111,4 +130,21 @@ function getNewID() {
   const getLargerID = (prevMaxID, current) => Math.max(prevMaxID, current.ID); //Reducer function
   const maxID = patientsData.reduce(getLargerID, 0);
   return maxID + 1; //Return the next available number
+}
+
+function onPatientDelConfirmShow(event) {
+  if( !$(event.relatedTarget).hasClass('patient-edit-del-btn') ) {
+    setCurrentPatient(event.relatedTarget);
+  }
+  $('.patient-id').html(currentPatient.ID);
+}
+
+function onPatientDelYesClick() {
+  DeletePatient(currentPatient.ID);
+  currentRow.remove();
+}
+
+function DeletePatient(id) {
+  const patientIndex = patientsData.findIndex(patient => patient.ID == id);
+  patientsData.splice(patientIndex, 1);
 }
