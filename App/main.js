@@ -1,17 +1,17 @@
 let patientId, formMode;
-let dataService;
+let dataService, routerEngine, templateEngine;
 
 $(document).ready(init);
 
 function init() {
   dataService = new DataService;
-  initRouter();
+  routerEngine = new RouterEngine;
+  templateEngine = new TemplateEngine;
+  dataService.init();
+  routerEngine.init();
+  templateEngine.init();
   initEdit();
   renderTable();
-}
-
-function initRouter() {
-  $('.action-link').click(onActionLinkClick); //Applies to any button responsible for routing
 }
 
 function initEdit() {
@@ -24,19 +24,8 @@ function initEdit() {
   $('.patient-del-confirm-btn').click(onPatientDeleteConfirmed);
 }
 
-function navigate(target) {
-  //Hide all screens first
-  hideAll();
-
-  $(target).show();
-}
-
-function hideAll() {
-  $('.component').hide();
-}
-
 function openList() {
-  navigate('.patients-list');
+  routerEngine.navigate('.patients-list');
   renderTable();
 }
 
@@ -54,13 +43,7 @@ function openEdit(id) {
     loadControlsData(selectedPatient);
   }
 
-  navigate('.patient-edit');
-}
-
-function onActionLinkClick(event) {
-  //Show only the component specified in the data-target attribute of the clicked button
-  const targetComponentSelector = $(event.target).data('target');
-  navigate(targetComponentSelector);
+  routerEngine.navigate('.patient-edit');
 }
 
 function onPatientAddClick() {
@@ -123,7 +106,7 @@ function renderTable() {
 
   const patientsArr = dataService.getAll();
   patientsArr.forEach(function (record) {
-    const rowHTML = renderTemplate(rowTemplate, record);
+    const rowHTML = templateEngine.renderTemplate(rowTemplate, record);
     tableBodyEl.append(rowHTML);
   });
 
@@ -185,10 +168,4 @@ function resetControls() {
   $('#last-check-field').val('');
   $('#status-field').val('0');
   $('#active-check').prop('checked', false);
-}
-
-function renderTemplate(templateText, data) {
-  return templateText.replaceAll(/{{2}(.+?)}{2}/g, (match, key) => data[key]);
-  //In the above line, match is the entire matched placeholder, and key is
-  //the captured group, which is the token inside the set of double braces.
 }
