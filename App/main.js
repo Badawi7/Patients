@@ -5,7 +5,6 @@ $(document).ready(init);
 function init() {
   initRouter();
   initEdit();
-  initDelete();
   renderTable();
 }
 
@@ -16,9 +15,7 @@ function initRouter() {
 function initEdit() {
   $('.patient-add-btn').click(onPatientAddClick);
   $('.patient-edit form').on('submit', onPatientEditFormSubmit);
-}
 
-function initDelete() {
   //Triggered when the delete confirmation dialog is shown
   $('#patient-del-dialog').on('show.bs.modal', onPatientDeleteDialogShow);
 
@@ -37,10 +34,7 @@ function hideAll() {
 }
 
 function openList() {
-  //Needs implementation
-}
-
-function onPatientListOpen() {
+  navigate('.patients-list');
   renderTable();
 }
 
@@ -85,7 +79,7 @@ function onPatientEditFormSubmit(event) {
   else {
     addPatient(patient);
   }
-  onPatientListOpen();
+  openList();
   event.preventDefault(); //Prevent submitting the form
 }
 
@@ -117,7 +111,7 @@ function onPatientDeleteDialogShow(event) {
 function onPatientDeleteConfirmed(event) {
   const targetPatientId = $(event.target).data('id'); //Get the ID stored in the confirmation (Yes) button
   deletePatient(targetPatientId);
-  renderTable();
+  openList();
 }
 
 function renderTable() {
