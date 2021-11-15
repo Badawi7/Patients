@@ -1,8 +1,10 @@
 let patientId, formMode;
+let dataService;
 
 $(document).ready(init);
 
 function init() {
+  dataService = new DataService;
   initRouter();
   initEdit();
   renderTable();
@@ -48,7 +50,7 @@ function openEdit(id) {
   else {
     formMode = 'edit';
     $('.patient-edit-del-btn').show();
-    const selectedPatient = getPatientById(id);
+    const selectedPatient = dataService.getPatientById(id);
     loadControlsData(selectedPatient);
   }
 
@@ -74,10 +76,10 @@ function onPatientEditClick(event) {
 function onPatientEditFormSubmit(event) {
   const patient = getControlsData();
   if (formMode === 'edit') {
-    editPatient(patient);
+    dataService.editPatient(patient);
   }
   else {
-    addPatient(patient);
+    dataService.addPatient(patient);
   }
   openList();
   event.preventDefault(); //Prevent submitting the form
@@ -110,7 +112,7 @@ function onPatientDeleteDialogShow(event) {
 
 function onPatientDeleteConfirmed(event) {
   const targetPatientId = $(event.target).data('id'); //Get the ID stored in the confirmation (Yes) button
-  deletePatient(targetPatientId);
+  dataService.deletePatient(targetPatientId);
   openList();
 }
 
@@ -119,7 +121,8 @@ function renderTable() {
   tableBodyEl.empty(); //Clear the table first
   const rowTemplate = $('.patients-table-template').html();
 
-  patientsData.forEach(function (record) {
+  const patientsArr = dataService.getAll();
+  patientsArr.forEach(function (record) {
     const rowHTML = renderTemplate(rowTemplate, record);
     tableBodyEl.append(rowHTML);
   });
@@ -155,6 +158,7 @@ function getControlsData() {
   const genderRNL = $('.patient-edit form')[0].elements['gender'];
 
   const patient = {
+    ID: patientId,
     fname: $('#fname-field').val(),
     mname: $('#mname-field').val(),
     lname: $('#lname-field').val(),
@@ -174,10 +178,8 @@ function resetControls() {
   $('#fname-field').val('');
   $('#mname-field').val('');
   $('#lname-field').val('');
-
-  const genderRNL = $('.patient-edit form')[0].elements['gender'];
-  genderRNL.value = '';
-
+  $('#gender-male').prop('checked', false);
+  $('#gender-female').prop('checked', false);
   $('#dob-field').val('');
   $('#email-field').val('');
   $('#last-check-field').val('');
@@ -189,73 +191,4 @@ function renderTemplate(templateText, data) {
   return templateText.replaceAll(/{{2}(.+?)}{2}/g, (match, key) => data[key]);
   //In the above line, match is the entire matched placeholder, and key is
   //the captured group, which is the token inside the set of double braces.
-}
-
-function addPatient(patient) {
-  patient.ID = getNewId();
-  patient.creationDate = new Date();
-  patient.CreatedBy = 1;
-  patientsData.push(patient);
-  return patient;
-}
-
-function editPatient(patient) {
-  //Use the global patientId to get the target patient object,
-  //because the patient object passed as an argument has no ID
-  const targetPatient = getPatientById(patientId);
-  targetPatient.fname = patient.fname;
-  targetPatient.mname = patient.mname;
-  targetPatient.lname = patient.lname;
-  targetPatient.gender = patient.gender;
-  targetPatient.DOB = patient.DOB;
-  targetPatient.email = patient.email;
-  targetPatient.lastCheck = patient.lastCheck;
-  targetPatient.status = patient.status;
-  targetPatient.Active = patient.Active;
-  return targetPatient;
-}
-
-function deletePatient(id) {
-  const patientIndex = getPatientIndexById(id);
-  const deletedPatient = patientsData.splice(patientIndex, 1)[0];
-  return deletedPatient;
-}
-
-//This function looks for the largest ID in the patients array, and returns that plus one
-function getNewId() {
-  let maxId = 0;
-
-  for (let i = 0; i < patientsData.length; i++) {
-    if (patientsData[i].ID > maxId) {
-      maxId = patientsData[i].ID;
-    }
-  }
-
-  return maxId + 1; //Return the next available number
-}
-
-function getPatientIndexById(id) {
-  let index;
-
-  for (let i = 0; i < patientsData.length; i++) {
-    if (patientsData[i].ID === id) {
-      index = i;
-      break; //Stop searching, as the index has been found
-    }
-  }
-
-  return index;
-}
-
-function getPatientById(id) {
-  let patient;
-
-  for (let i = 0; i < patientsData.length; i++) {
-    if (patientsData[i].ID === id) {
-      patient = patientsData[i];
-      break; //Stop searching, as the patient object has been found
-    }
-  }
-
-  return patient;
 }

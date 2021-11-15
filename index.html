@@ -10,6 +10,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="Modules/jQuery/jquery-3.6.0.min.js"></script>
   <script src="App/data/patientData.js"></script>
+  <script src="App/Utilities/data-service.js"></script>
   <script src="App/main.js"></script>
 </head>
 
@@ -218,6 +219,8 @@
       </form>
     </div>
   </div>
+
+  <!-- Template for rows of Patients List table -->
   <template class="patients-table-template">
     <tr data-id="{{ID}}">
       <td>{{ID}}</td>
@@ -233,6 +236,7 @@
       </td>
     </tr>
   </template>
+
   <!-- Patient Delete Confirmation Dialog -->
   <div class="modal" id="patient-del-dialog" tabindex="-1">
     <div class="modal-dialog">
@@ -251,6 +255,7 @@
       </div>
     </div>
   </div>
+
   <script src="Modules/Bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 </html>
