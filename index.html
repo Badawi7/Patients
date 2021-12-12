@@ -42,6 +42,7 @@
             <th>Email</th>
             <th>Gender</th>
             <th>DOB</th>
+            <th>Status</th>
             <th>Active</th>
             <th>Creation</th>
             <th></th>
@@ -228,10 +229,11 @@
       <td>{{ID}}</td>
       <td>{{fname}} {{mname}} {{lname}}</td>
       <td>{{email}}</td>
-      <td>{{gender}}</td>
-      <td>{{DOB}}</td>
+      <td>{{gender | gender}}</td>
+      <td>{{DOB | date | DD/MM/YYYY}}</td>
+      <td>{{status | status}}</td>
       <td>{{Active}}</td>
-      <td>By {{CreatedBy}} at {{creationDate}}</td>
+      <td>By {{CreatedBy}} at {{creationDate | date | DD/MM/YYYY}}</td>
       <td class="text-nowrap">
         <button type="button" class="btn btn-outline-secondary patient-edit-btn">Edit</button>
         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#patient-del-dialog">Delete</button>

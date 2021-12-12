@@ -145,11 +145,11 @@ function getControlsData() {
     fname: $('#fname-field').val(),
     mname: $('#mname-field').val(),
     lname: $('#lname-field').val(),
-    gender: genderRNL.value,
+    gender: Number(genderRNL.value),
     DOB: $('#dob-field')[0].valueAsDate,
     email: $('#email-field').val(),
     lastCheck: $('#last-check-field')[0].valueAsDate,
-    status: $('#status-field').val(),
+    status: Number($('#status-field').val()),
     Active: $('#active-check').prop('checked'),
   };
 
