@@ -16,7 +16,7 @@ function init() {
 
 function initEdit() {
   $('.patient-add-btn').click(onPatientAddClick);
-  $('.patient-edit form').on('submit', onPatientEditFormSubmit);
+  $('.patient-edit .save-btn').click(onPatientSaveClick);
 
   //Triggered when the delete confirmation dialog is shown
   $('#patient-del-dialog').on('show.bs.modal', onPatientDeleteDialogShow);
@@ -56,7 +56,7 @@ function onPatientEditClick(event) {
   openEdit(seletedPatientId);
 }
 
-function onPatientEditFormSubmit(event) {
+function onPatientSaveClick() {
   clearValidationFeedback();
   const patient = getControlsData();
   if (patient) {
@@ -68,7 +68,6 @@ function onPatientEditFormSubmit(event) {
     }
     openList();
   }
-  event.preventDefault(); //Prevent submitting the form
 }
 
 /* This is the event handler that is triggered when the delete
