@@ -57,14 +57,17 @@ function onPatientEditClick(event) {
 }
 
 function onPatientEditFormSubmit(event) {
+  clearValidationFeedback();
   const patient = getControlsData();
-  if (formMode === 'edit') {
-    dataService.editPatient(patient);
+  if (patient) {
+    if (formMode === 'edit') {
+      dataService.editPatient(patient);
+    }
+    else {
+      dataService.addPatient(patient);
+    }
+    openList();
   }
-  else {
-    dataService.addPatient(patient);
-  }
-  openList();
   event.preventDefault(); //Prevent submitting the form
 }
 
@@ -138,6 +141,9 @@ function loadControlsData(patient) {
 }
 
 function getControlsData() {
+  if (!validateInput()) {
+    return;
+  }
   const genderRNL = $('.patient-edit form')[0].elements['gender'];
 
   const patient = {
@@ -168,4 +174,52 @@ function resetControls() {
   $('#last-check-field').val('');
   $('#status-field').val('0');
   $('#active-check').prop('checked', false);
+}
+
+function clearValidationFeedback() {
+  $('#fname-field').removeClass('is-invalid');
+  $('#mname-field').removeClass('is-invalid');
+  $('#lname-field').removeClass('is-invalid');
+  $('#dob-field').removeClass('is-invalid');
+  $('#age-field').removeClass('is-invalid');
+  $('#email-field').removeClass('is-invalid');
+}
+
+function validateInput() {
+  let valid = true;
+  if ($('#fname-field').val().trim().length == 0) {
+    valid = false;
+    $('#fname-field').addClass('is-invalid');
+  }
+
+  if ($('#mname-field').val().trim().length == 0) {
+    valid = false;
+    $('#mname-field').addClass('is-invalid');
+  }
+
+  if ($('#lname-field').val().trim().length == 0) {
+    valid = false;
+    $('#lname-field').addClass('is-invalid');
+  }
+
+  const dob = $('#dob-field')[0].valueAsDate;
+  if (!dob || dob.getTime() > Date.now()) {
+    valid = false;
+    $('#dob-field').addClass('is-invalid');
+  }
+
+  const age = $('#age-field')[0].valueAsNumber;
+  if (isNaN(age) || age <= 0) {
+    valid = false;
+    $('#age-field').addClass('is-invalid');
+  }
+
+  const emailRegExp = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  const email = $('#email-field').val();
+  if (!emailRegExp.test(email)) {
+    valid = false;
+    $('#email-field').addClass('is-invalid');
+  }
+
+  return valid;
 }
