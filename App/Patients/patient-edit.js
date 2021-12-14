@@ -147,40 +147,60 @@ class PatientEdit {
 
   validateForm() {
     let valid = true;
-    if ($('#fname-field').val().trim().length == 0) {
+    if (!this.validateRequiredField($('#fname-field'))) {
       valid = false;
       $('#fname-field').addClass('is-invalid');
     }
 
-    if ($('#mname-field').val().trim().length == 0) {
+    if (!this.validateRequiredField($('#mname-field'))) {
       valid = false;
       $('#mname-field').addClass('is-invalid');
     }
 
-    if ($('#lname-field').val().trim().length == 0) {
+    if (!this.validateRequiredField($('#lname-field'))) {
       valid = false;
       $('#lname-field').addClass('is-invalid');
     }
 
-    const dob = $('#dob-field')[0].valueAsDate;
-    if (!dob || dob.getTime() > Date.now()) {
+    if (!this.validatePastDateField($('#dob-field'))) {
       valid = false;
       $('#dob-field').addClass('is-invalid');
     }
 
-    const age = $('#age-field')[0].valueAsNumber;
-    if (isNaN(age) || age <= 0) {
+    if (!this.validatePositiveNumberField($('#age-field'))) {
       valid = false;
       $('#age-field').addClass('is-invalid');
     }
 
-    const emailRegExp = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-    const email = $('#email-field').val();
-    if (!emailRegExp.test(email)) {
+    if (!this.validateEmailField($('#email-field'))) {
       valid = false;
       $('#email-field').addClass('is-invalid');
     }
 
+    return valid;
+  }
+
+  validateRequiredField(field) {
+    const valid = (field.val().trim().length > 0);
+    return valid;
+  }
+  
+  validatePastDateField(field) {
+    const date = field[0].valueAsDate;
+    const valid = (date != null && date.getTime() < Date.now());
+    return valid;
+  }
+  
+  validatePositiveNumberField(field) {
+    const n = field[0].valueAsNumber;
+    const valid = (n > 0);
+    return valid;
+  }
+  
+  validateEmailField(field) {
+    const emailRegExp = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    const email = field.val();
+    const valid = emailRegExp.test(email);
     return valid;
   }
 }
