@@ -30,6 +30,7 @@ function openList() {
 }
 
 function openEdit(id) {
+  clearValidationFeedback();
   patientId = id;
   if (id === undefined) {
     formMode = 'new';
@@ -58,16 +59,17 @@ function onPatientEditClick(event) {
 
 function onPatientSaveClick() {
   clearValidationFeedback();
-  const patient = getControlsData();
-  if (patient) {
-    if (formMode === 'edit') {
-      dataService.editPatient(patient);
-    }
-    else {
-      dataService.addPatient(patient);
-    }
-    openList();
+  if (!validateForm()) {
+    return;
   }
+  const patient = getControlsData();
+  if (formMode === 'edit') {
+    dataService.editPatient(patient);
+  }
+  else {
+    dataService.addPatient(patient);
+  }
+  openList();
 }
 
 /* This is the event handler that is triggered when the delete
@@ -140,9 +142,6 @@ function loadControlsData(patient) {
 }
 
 function getControlsData() {
-  if (!validateInput()) {
-    return;
-  }
   const genderRNL = $('.patient-edit form')[0].elements['gender'];
 
   const patient = {
@@ -169,6 +168,7 @@ function resetControls() {
   $('#gender-male').prop('checked', false);
   $('#gender-female').prop('checked', false);
   $('#dob-field').val('');
+  $('#age-field').val('');
   $('#email-field').val('');
   $('#last-check-field').val('');
   $('#status-field').val('0');
@@ -184,7 +184,7 @@ function clearValidationFeedback() {
   $('#email-field').removeClass('is-invalid');
 }
 
-function validateInput() {
+function validateForm() {
   let valid = true;
   if ($('#fname-field').val().trim().length == 0) {
     valid = false;
