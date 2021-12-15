@@ -6,33 +6,33 @@ class PatientEdit {
   }
 
   init() {
-    $('.patient-edit .save-btn').click(this.onPatientSaveClick);
+    $('.patient-edit .save-btn').click(this.onSavePatientClick);
 
     //Triggered when the delete confirmation dialog is shown
-    $('#patient-del-dialog').on('show.bs.modal', this.onPatientDeleteDialogShow);
+    $('#patient-del-dialog').on('show.bs.modal', this.onDeletePatientDialogShow);
 
-    $('.patient-del-confirm-btn').click(this.onPatientDeleteConfirmed);
+    $('.patient-del-confirm-btn').click(this.onDeletePatientConfirmed);
   }
 
   open(id) {
     this.clearValidationFeedback();
     this.patientId = id;
-    if (id === undefined) {
-      this.formMode = 'new';
-      $('.patient-edit-del-btn').hide();
-      this.resetControls();
-    }
-    else {
+    if (id) {
       this.formMode = 'edit';
-      $('.patient-edit-del-btn').show();
+      $('.patient-edit-del-btn').prop('disabled', false);
       const selectedPatient = dataService.getPatientById(id);
       this.loadControlsData(selectedPatient);
+    }
+    else {
+      this.formMode = 'new';
+      $('.patient-edit-del-btn').prop('disabled', true);
+      this.resetControls();
     }
 
     routerEngine.navigate('.patient-edit');
   }
 
-  onPatientSaveClick = () => {
+  onSavePatientClick = () => {
     this.clearValidationFeedback();
     if (!this.validateForm()) {
       return;
@@ -50,7 +50,7 @@ class PatientEdit {
   /* This is the event handler that is triggered when the delete
   confirmation dialog is shown. Its purpose is to display the patient's
   ID in the dialog, and store it for use when deletion is confirmed. */
-  onPatientDeleteDialogShow = (event) => {
+  onDeletePatientDialogShow = (event) => {
     /* Determine whether the button that triggered the modal is
     the Delete button in the Edit screen or not (if not, it will
     be one of the Delete buttons in the Patients List screen).
@@ -72,7 +72,7 @@ class PatientEdit {
     $('#patient-del-dialog .patient-del-confirm-btn').data('id', id); //Store the ID in the confirmation (Yes) button
   }
 
-  onPatientDeleteConfirmed(event) {
+  onDeletePatientConfirmed(event) {
     const targetPatientId = $(event.target).data('id'); //Get the ID stored in the confirmation (Yes) button
     dataService.deletePatient(targetPatientId);
     patientsList.open();
@@ -137,12 +137,7 @@ class PatientEdit {
   }
 
   clearValidationFeedback() {
-    $('#fname-field').removeClass('is-invalid');
-    $('#mname-field').removeClass('is-invalid');
-    $('#lname-field').removeClass('is-invalid');
-    $('#dob-field').removeClass('is-invalid');
-    $('#age-field').removeClass('is-invalid');
-    $('#email-field').removeClass('is-invalid');
+    $('.is-invalid').removeClass('is-invalid');
   }
 
   validateForm() {

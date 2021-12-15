@@ -5,6 +5,36 @@ class DataService {
   init() {
   }
 
+  getAll() {
+    return patientsData;
+  }
+
+  getPatientById(id) {
+    let patient;
+  
+    for (let i = 0; i < patientsData.length; i++) {
+      if (patientsData[i].ID === id) {
+        patient = patientsData[i];
+        break; //Stop searching, as the patient object has been found
+      }
+    }
+  
+    return patient;
+  }
+  
+  getPatientIndexById(id) {
+    let index;
+  
+    for (let i = 0; i < patientsData.length; i++) {
+      if (patientsData[i].ID === id) {
+        index = i;
+        break; //Stop searching, as the index has been found
+      }
+    }
+  
+    return index;
+  }
+  
   addPatient(patient) {
     patient.ID = this.getNewId();
     patient.creationDate = new Date();
@@ -44,35 +74,5 @@ class DataService {
     }
   
     return maxId + 1; //Return the next available number
-  }
-  
-  getPatientIndexById(id) {
-    let index;
-  
-    for (let i = 0; i < patientsData.length; i++) {
-      if (patientsData[i].ID === id) {
-        index = i;
-        break; //Stop searching, as the index has been found
-      }
-    }
-  
-    return index;
-  }
-  
-  getPatientById(id) {
-    let patient;
-  
-    for (let i = 0; i < patientsData.length; i++) {
-      if (patientsData[i].ID === id) {
-        patient = patientsData[i];
-        break; //Stop searching, as the patient object has been found
-      }
-    }
-  
-    return patient;
-  }
-  
-  getAll() {
-    return patientsData;
   }
 }

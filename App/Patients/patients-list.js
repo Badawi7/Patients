@@ -3,7 +3,7 @@ class PatientsList {
   }
 
   init() {
-    $('.patient-add-btn').click(this.onPatientAddClick);
+    $('.patient-add-btn').click(this.onAddPatientClick);
     this.renderTable();
   }
 
@@ -12,11 +12,11 @@ class PatientsList {
     this.renderTable();
   }
 
-  onPatientAddClick() {
+  onAddPatientClick() {
     patientEdit.open();
   }
 
-  onPatientEditClick(event) {
+  onEditPatientClick(event) {
     const selectedRow = $(event.target).closest('tr');
     const seletedPatientId = selectedRow.data('id');
     patientEdit.open(seletedPatientId);
@@ -33,6 +33,10 @@ class PatientsList {
       tableBodyEl.append(rowHTML);
     });
 
-    $('.patient-edit-btn').click(this.onPatientEditClick); //Attach an event handler to the newly created Edit buttons
+    this.addEditClickEvent(); //Attach an event handler to the newly created Edit buttons
+  }
+
+  addEditClickEvent() {
+    $('.patient-edit-btn').click(this.onEditPatientClick);
   }
 }
