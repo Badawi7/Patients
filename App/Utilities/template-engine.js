@@ -15,7 +15,7 @@ class TemplateEngine {
   #placeholderReplacer(token, data) {
     const parts = token.split(' | ');
     const value = data[parts[0]];
-    let result;
+    let result = null;
     if (parts.length < 2) {
       result = value;
     }
@@ -48,7 +48,7 @@ class TemplateEngine {
   }
 
   statusPipe(value) {
-    let status;
+    let status = null;
     switch (value) {
       case 0:
         status = 'inactive';
@@ -63,7 +63,7 @@ class TemplateEngine {
   }
 
   genderPipe(value) {
-    let gender;
+    let gender = null;
     switch (value) {
       case 1:
         gender = 'Male';

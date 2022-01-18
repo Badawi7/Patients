@@ -9,8 +9,8 @@ class DataService {
     return patientsData;
   }
 
-  getPatientById(id) {
-    let patient;
+  get(id) {
+    let patient = null;
   
     for (let i = 0; i < patientsData.length; i++) {
       if (patientsData[i].ID === id) {
@@ -22,8 +22,8 @@ class DataService {
     return patient;
   }
   
-  getPatientIndexById(id) {
-    let index;
+  getIndex(id) {
+    let index = null;
   
     for (let i = 0; i < patientsData.length; i++) {
       if (patientsData[i].ID === id) {
@@ -44,7 +44,7 @@ class DataService {
   }
   
   editPatient(patient) {
-    const targetPatient = this.getPatientById(patient.ID);
+    const targetPatient = this.get(patient.ID);
     targetPatient.fname = patient.fname;
     targetPatient.mname = patient.mname;
     targetPatient.lname = patient.lname;
@@ -58,7 +58,7 @@ class DataService {
   }
   
   deletePatient(id) {
-    const patientIndex = this.getPatientIndexById(id);
+    const patientIndex = this.getIndex(id);
     const deletedPatient = patientsData.splice(patientIndex, 1)[0];
     return deletedPatient;
   }

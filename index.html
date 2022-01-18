@@ -5,10 +5,10 @@
   <meta name="author" content="Badawi Maswadeh">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Patients</title>
-  <link href="Modules/Bootstrap/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link href="Styles/main.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="Modules/jQuery/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="App/data/patientData.js"></script>
   <script src="App/Utilities/data-service.js"></script>
   <script src="App/Utilities/router-engine.js"></script>
@@ -25,7 +25,7 @@
       <li><button type="button" class="btn action-link" data-target=".users-list">Users</button></li>
     </ul>
   </div>
-  <div class="main mt-3 me-3 mb-3">
+  <div class="content-container mt-3 me-3 mb-3">
     <!-- Patients List -->
     <div class="component patients-list">
       <div class="container-fluid mb-3">
@@ -60,7 +60,7 @@
       <div class="row">
         <h1 class="col patient-edit-heading"></h1>
         <div class="col-1 align-self-end text-end">
-          <button type="button" class="btn btn-danger patient-edit-del-btn" data-bs-toggle="modal" data-bs-target="#patient-del-dialog">Delete</button>
+          <button type="button" class="btn btn-danger patient-edit-del-btn" data-bs-toggle="modal" data-bs-target="#patient-edit-del-dialog">Delete</button>
         </div>
       </div>
       
@@ -244,13 +244,13 @@
       <td>By {{CreatedBy}} at {{creationDate | date | DD/MM/YYYY}}</td>
       <td class="text-nowrap">
         <button type="button" class="btn btn-outline-secondary patient-edit-btn">Edit</button>
-        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#patient-del-dialog">Delete</button>
+        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#patient-list-del-dialog">Delete</button>
       </td>
     </tr>
   </template>
 
-  <!-- Patient Delete Confirmation Dialog -->
-  <div class="modal" id="patient-del-dialog" tabindex="-1">
+  <!-- Patient Delete Confirmation Dialog (List screen) -->
+  <div class="modal" id="patient-list-del-dialog" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -258,7 +258,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          Are you sure you want to delete patient <span class="patient-id"></span>?
+          Are you sure you want to delete patient <span class="patient-name"></span> (ID: <span class="patient-id"></span>)?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger patient-del-confirm-btn" data-bs-dismiss="modal">&#9888; Yes</button>
@@ -268,6 +268,25 @@
     </div>
   </div>
 
-  <script src="Modules/Bootstrap/bootstrap.bundle.min.js"></script>
+  <!-- Patient Delete Confirmation Dialog (Edit screen) -->
+  <div class="modal" id="patient-edit-del-dialog" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete Patient</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete patient <span class="patient-name"></span> (ID: <span class="patient-id"></span>)?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger patient-del-confirm-btn" data-bs-dismiss="modal">&#9888; Yes</button>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

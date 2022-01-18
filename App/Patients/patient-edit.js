@@ -1,6 +1,6 @@
 class PatientEdit {
-  patientId;
-  formMode;
+  patientId = null;
+  formMode = null;
 
   constructor() {
   }
@@ -9,9 +9,9 @@ class PatientEdit {
     $('.patient-edit .save-btn').click(this.onSavePatientClick);
 
     //Triggered when the delete confirmation dialog is shown
-    $('#patient-del-dialog').on('show.bs.modal', this.onDeletePatientDialogShow);
+    $('#patient-edit-del-dialog').on('show.bs.modal', this.onDeletePatientDialogShow);
 
-    $('.patient-del-confirm-btn').click(this.onDeletePatientConfirmed);
+    $('#patient-edit-del-dialog .patient-del-confirm-btn').click(this.onDeletePatientConfirmed);
   }
 
   open(id) {
@@ -20,7 +20,7 @@ class PatientEdit {
     if (id) {
       this.formMode = 'edit';
       $('.patient-edit-del-btn').prop('disabled', false);
-      const selectedPatient = dataService.getPatientById(id);
+      const selectedPatient = dataService.get(id);
       this.loadControlsData(selectedPatient);
     }
     else {
@@ -47,34 +47,18 @@ class PatientEdit {
     patientsList.open();
   }
 
-  /* This is the event handler that is triggered when the delete
-  confirmation dialog is shown. Its purpose is to display the patient's
-  ID in the dialog, and store it for use when deletion is confirmed. */
-  onDeletePatientDialogShow = (event) => {
-    /* Determine whether the button that triggered the modal is
-    the Delete button in the Edit screen or not (if not, it will
-    be one of the Delete buttons in the Patients List screen).
-    The Delete button in Edit screen has .patient-edit-del-btn */
-    const trigger = $(event.relatedTarget);
-    let id;
-
-    if (trigger.hasClass('patient-edit-del-btn')) {
-      //Triggered from Edit Patient screen
-      id = this.patientId;
-    }
-    else {
-      //Triggered from Patients List screen
-      const selectedRow = trigger.closest('tr');
-      id = selectedRow.data('id'); //Get the ID stored in the associated row
-    }
-
-    $('#patient-del-dialog .patient-id').html(id); //Display the ID in the dialog
-    $('#patient-del-dialog .patient-del-confirm-btn').data('id', id); //Store the ID in the confirmation (Yes) button
+  /* This is the event handler that is triggered when
+  the delete confirmation dialog is shown. Its purpose
+  is to display the patient's name and ID in the dialog. */
+  onDeletePatientDialogShow = () => {
+    const patient = dataService.get(this.patientId);
+    const fullName = patient.fname + ' ' + patient.mname + ' ' + patient.lname;
+    $('#patient-edit-del-dialog .patient-name').html(fullName); //Display the name in the dialog
+    $('#patient-edit-del-dialog .patient-id').html(this.patientId); //Display the ID in the dialog
   }
 
-  onDeletePatientConfirmed(event) {
-    const targetPatientId = $(event.target).data('id'); //Get the ID stored in the confirmation (Yes) button
-    dataService.deletePatient(targetPatientId);
+  onDeletePatientConfirmed = () => {
+    dataService.deletePatient(this.patientId);
     patientsList.open();
   }
 
