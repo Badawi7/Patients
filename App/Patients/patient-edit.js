@@ -122,6 +122,7 @@ class PatientEdit {
 
   clearValidationFeedback() {
     $('.is-invalid').removeClass('is-invalid');
+    $('.error-message').hide();
   }
 
   validateForm() {
@@ -156,7 +157,7 @@ class PatientEdit {
         throw 'Invalid validation type.';
     }
     if (!valid) {
-      field.addClass('is-invalid');
+      this.showError(field);
     }
     return valid;
   }
@@ -183,5 +184,10 @@ class PatientEdit {
     const email = field.val();
     const valid = emailRegExp.test(email);
     return valid;
+  }
+
+  showError(field) {
+    field.addClass('is-invalid');
+    field.siblings('.error-message').show();
   }
 }

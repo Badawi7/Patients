@@ -35,3 +35,8 @@
 .patients-list, .patient-edit, .users-list, .user-edit {
   display: none;
 }
+
+.error-message {
+  display: none;
+  color: red;
+}
