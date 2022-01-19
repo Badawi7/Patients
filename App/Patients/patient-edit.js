@@ -121,20 +121,23 @@ class PatientEdit {
   }
 
   clearValidationFeedback() {
+    $('.patient-edit .error-summary').html('');
     $('.is-invalid').removeClass('is-invalid');
     $('.error-message').hide();
   }
 
   validateForm() {
     let valid = true;
+    let summary = '';
     const fieldsToValidate = $('[data-validation]');
     const self = this;
     fieldsToValidate.each(function(i, el) {
       if (!self.validateField($(el))) {
         valid = false;
+        summary += $(el).siblings('.error-message').html() + '<br>';
       }
     });
-
+    $('.patient-edit .error-summary').html(summary);
     return valid;
   }
 

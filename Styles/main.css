@@ -40,3 +40,7 @@
   display: none;
   color: red;
 }
+
+.error-summary {
+  color: red;
+}
